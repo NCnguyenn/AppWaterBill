@@ -52,7 +52,7 @@
             // btnExit
             // 
             this.btnExit.Location = new System.Drawing.Point(314, 536);
-            this.btnExit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExit.Margin = new System.Windows.Forms.Padding(2);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(118, 30);
             this.btnExit.TabIndex = 0;
@@ -76,10 +76,11 @@
             // txtCustomerName
             // 
             this.txtCustomerName.Location = new System.Drawing.Point(169, 148);
-            this.txtCustomerName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtCustomerName.Margin = new System.Windows.Forms.Padding(2);
             this.txtCustomerName.Name = "txtCustomerName";
             this.txtCustomerName.Size = new System.Drawing.Size(263, 26);
             this.txtCustomerName.TabIndex = 2;
+            this.txtCustomerName.TextChanged += new System.EventHandler(this.txtCustomerName_TextChanged);
             // 
             // lbTypeOfCustomer
             // 
@@ -99,7 +100,7 @@
             this.cboTypeOfCustomer.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTypeOfCustomer.FormattingEnabled = true;
             this.cboTypeOfCustomer.Location = new System.Drawing.Point(169, 230);
-            this.cboTypeOfCustomer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cboTypeOfCustomer.Margin = new System.Windows.Forms.Padding(2);
             this.cboTypeOfCustomer.Name = "cboTypeOfCustomer";
             this.cboTypeOfCustomer.Size = new System.Drawing.Size(258, 28);
             this.cboTypeOfCustomer.TabIndex = 4;
@@ -121,7 +122,7 @@
             // txtNumberOfPeople
             // 
             this.txtNumberOfPeople.Location = new System.Drawing.Point(169, 320);
-            this.txtNumberOfPeople.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNumberOfPeople.Margin = new System.Windows.Forms.Padding(2);
             this.txtNumberOfPeople.Name = "txtNumberOfPeople";
             this.txtNumberOfPeople.Size = new System.Drawing.Size(263, 26);
             this.txtNumberOfPeople.TabIndex = 6;
@@ -145,7 +146,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLastMonthWaterMeter.Location = new System.Drawing.Point(169, 411);
-            this.txtLastMonthWaterMeter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtLastMonthWaterMeter.Margin = new System.Windows.Forms.Padding(2);
             this.txtLastMonthWaterMeter.Name = "txtLastMonthWaterMeter";
             this.txtLastMonthWaterMeter.Size = new System.Drawing.Size(258, 26);
             this.txtLastMonthWaterMeter.TabIndex = 8;
@@ -166,7 +167,7 @@
             // txtThisMonthWaterMeter
             // 
             this.txtThisMonthWaterMeter.Location = new System.Drawing.Point(173, 475);
-            this.txtThisMonthWaterMeter.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtThisMonthWaterMeter.Margin = new System.Windows.Forms.Padding(2);
             this.txtThisMonthWaterMeter.Name = "txtThisMonthWaterMeter";
             this.txtThisMonthWaterMeter.Size = new System.Drawing.Size(258, 26);
             this.txtThisMonthWaterMeter.TabIndex = 10;
@@ -174,7 +175,7 @@
             // btnCaculator
             // 
             this.btnCaculator.Location = new System.Drawing.Point(169, 536);
-            this.btnCaculator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCaculator.Margin = new System.Windows.Forms.Padding(2);
             this.btnCaculator.Name = "btnCaculator";
             this.btnCaculator.Size = new System.Drawing.Size(119, 30);
             this.btnCaculator.TabIndex = 11;
@@ -249,7 +250,7 @@
             this.Controls.Add(this.txtCustomerName);
             this.Controls.Add(this.lbCustomerName);
             this.Controls.Add(this.btnExit);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Water Bill";

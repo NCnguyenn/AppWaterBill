@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -17,6 +18,7 @@ namespace WindowsFormsApp_Test
         public Form1()
         {
             InitializeComponent();
+            invoices = new List<Invoice>();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,37 +68,46 @@ namespace WindowsFormsApp_Test
             double lastMonthWaterMeter = 0;
             double thisMonthWaterMeter = 0;
 
-            if (customerName == "")
+            // Kiểm tra tên khách hàng (không cho phép ký tự đặc biệt)
+            if (string.IsNullOrEmpty(customerName) || Regex.IsMatch(customerName, "[^a-zA-Z ]"))
             {
-                MessageBox.Show("Please enter customer name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid customer name (letters and spaces only).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (customerType == "")
             {
-                MessageBox.Show("Please enter customer type.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select customer type.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
             if (customerType == "Household customer")
             {
                 if (!int.TryParse(txtNumberOfPeople.Text, out numberOfPeople) || numberOfPeople <= 0)
                 {
-                    MessageBox.Show("Please enter number of people.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Please enter a valid number of people (positive integer).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
             }
 
             if (!double.TryParse(txtLastMonthWaterMeter.Text, out lastMonthWaterMeter) || lastMonthWaterMeter < 0)
             {
-                MessageBox.Show("Please enter last month's water meter.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid last month's water meter (non-negative).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
             if (!double.TryParse(txtThisMonthWaterMeter.Text, out thisMonthWaterMeter) || thisMonthWaterMeter < 0)
             {
-                MessageBox.Show("Please enter this month's water meter.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please enter a valid this month's water meter (non-negative).", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            if (thisMonthWaterMeter < lastMonthWaterMeter)
+            {
+                MessageBox.Show("This month's water meter cannot be less than last month's.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var waterBill = Calculator(customerType, numberOfPeople, lastMonthWaterMeter, thisMonthWaterMeter);
             ListViewItem item = new ListViewItem(customerName);
             item.SubItems.Add(lastMonthWaterMeter.ToString());
@@ -108,12 +119,15 @@ namespace WindowsFormsApp_Test
             Invoice invoice = new Invoice
             {
                 CustomerName = customerName,
+                
                 LastMonthWaterMeter = lastMonthWaterMeter,
                 ThisMonthWaterMeter = thisMonthWaterMeter,
                 Consumption = waterBill.Item1,
-                WaterMoney = waterBill.Item2
+                WaterMoney = waterBill.Item2,
+                
             };
-            invoices.Add(invoice);  
+            invoices.Add(invoice);
+
         }
         private (double, double) Calculator(string customerType, int numberOfMember, double lastMonthWaterMeter, double thisMonthWaterMeter)
         {
@@ -210,6 +224,23 @@ namespace WindowsFormsApp_Test
 
         private void lvWaterBill_SelectedIndexChanged(object sender, EventArgs e)
         {
+
+        }
+
+        private void txtCustomerName_TextChanged(object sender, EventArgs e)
+        {
+            string input = txtCustomerName.Text;
+
+            
+            if (System.Text.RegularExpressions.Regex.IsMatch(input, @"[^a-zA-Z\s]"))
+            {
+                
+                errorProvider1.SetError(txtCustomerName, "The name must not contain numbers or special characters.");
+            }
+            else
+            {
+                errorProvider1.SetError(txtCustomerName, "");
+            }
 
         }
     }
